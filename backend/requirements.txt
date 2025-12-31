@@ -5,3 +5,4 @@ flask-jwt-extended
 marshmallow
 flask-bcrypt
 flask-cors
+requests

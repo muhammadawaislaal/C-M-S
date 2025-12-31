@@ -10,14 +10,23 @@ import AddEditCourse from './pages/admin/AddEditCourse';
 import AddLecture from './pages/admin/AddLecture';
 import AdminCourses from './pages/admin/AdminCourses';
 import AdminStudents from './pages/admin/AdminStudents';
+import AdminGradeSubmission from './pages/admin/AdminGradeSubmission'
 import AdminRegister from './pages/admin/AdminRegister';
+import Analytics from './pages/admin/Analytics';
+import Forum from './pages/admin/Forum';
+import Messages from './pages/admin/Messages';
+import Announcements from './pages/admin/Announcements';
+import AdminSettings from './pages/admin/AdminSettings';
+import AdminAssessments from './pages/admin/AdminAssessments';
+import LectureQuiz from './pages/student/LectureQuiz';
 
 import StudentDashboard from './pages/student/StudentDashboard';
 import LectureViewer from './pages/student/LectureViewer';
 import StudentMyCourses from './pages/student/StudentMyCourses';
 import StudentAllCourses from './pages/student/StudentAllCourses';
+import StudentSettings from './pages/student/StudentSettings';
+import StudentAchievements from './pages/student/StudentAchievements';
 
-// Layouts
 import AdminLayout from './layouts/AdminLayout';
 import StudentLayout from './layouts/StudentLayout';
 
@@ -29,7 +38,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          {/* Admin Routes */}
+
           <Route path="/admin" element={
             <ProtectedRoute roles={['admin']}>
               <AdminLayout />
@@ -42,9 +51,16 @@ function App() {
             <Route path="add-course" element={<AddEditCourse />} />
             <Route path="edit-course/:courseId" element={<AddEditCourse />} />
             <Route path="add-lecture/:courseId" element={<AddLecture />} />
+            <Route path="assessments" element={<AdminAssessments />} />
+            <Route path="assessments/submission/:submissionId" element={<AdminGradeSubmission />} />
+            <Route path="forums" element={<Forum />} />
+            <Route path="messages" element={<Messages />} />
+            <Route path="announcements" element={<Announcements />} />
+            <Route path="analytics" element={<Analytics />} />
+            <Route path="settings" element={<AdminSettings />} />
           </Route>
 
-          {/* Student Routes */}
+
           <Route path="/student" element={
             <ProtectedRoute roles={['student']}>
               <StudentLayout />
@@ -54,6 +70,10 @@ function App() {
             <Route path="my-courses" element={<StudentMyCourses />} />
             <Route path="courses" element={<StudentAllCourses />} />
             <Route path="course/:courseId" element={<LectureViewer />} />
+            <Route path="quiz/:quizId" element={<LectureQuiz />} />
+            <Route path="community" element={<Forum />} />
+            <Route path="achievements" element={<StudentAchievements />} />
+            <Route path="settings" element={<StudentSettings />} />
           </Route>
 
           <Route path="/" element={<Navigate to="/login" replace />} />

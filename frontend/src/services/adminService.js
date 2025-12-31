@@ -1,7 +1,6 @@
 import api from '../api/axios';
 
 const adminService = {
-    // Course Management
     getAllCourses: async () => {
         const response = await api.get('/admin/courses');
         return response.data;
@@ -22,22 +21,37 @@ const adminService = {
         return response.data;
     },
 
-    // Student Management
     getAllStudents: async () => {
-        // Assuming the backend route matches the pattern of getAllCourses (/admin/courses)
-        // Adjust endpoint if backend is different (e.g. /admin/get_students)
         const response = await api.get('/admin/students');
         return response.data;
     },
 
-    // Lecture Management
+    updateStudent: async (studentId, data) => {
+        const response = await api.put(`/admin/students/${studentId}`, data);
+        return response.data;
+    },
+
+    deleteStudent: async (studentId) => {
+        const response = await api.delete(`/admin/students/${studentId}`);
+        return response.data;
+    },
+
+    getStudentById: async (studentId) => {
+        const response = await api.get(`/admin/students/${studentId}`);
+        return response.data;
+    },
+
+    searchStudents: async (query) => {
+        const response = await api.get(`/admin/students/search?q=${query}`);
+        return response.data;
+    },
+
     addLectureVideo: async (data) => {
         const response = await api.post('/lecture/add', data);
         return response.data;
     },
 
     addLecturePdf: async (formData) => {
-        // For FormData, axios automatically sets Content-Type to multipart/form-data with the correct boundary
         const response = await api.post('/lecture/add', formData);
         return response.data;
     }

@@ -1,0 +1,11 @@
+import pymysql
+conn = pymysql.connect(host='127.0.0.1', user='root', password='', db='cms')
+cur = conn.cursor()
+cur.execute('SELECT COUNT(*) FROM lecture_progress WHERE student_id=2')
+print('before', cur.fetchone())
+cur.execute('DELETE FROM lecture_progress WHERE student_id=2')
+conn.commit()
+cur.execute('SELECT COUNT(*) FROM lecture_progress WHERE student_id=2')
+print('after', cur.fetchone())
+cur.close()
+conn.close()

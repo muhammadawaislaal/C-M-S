@@ -137,14 +137,24 @@ def get_all_courses():
         schema = CourseSchema(many=True)
         courses_data = schema.dump(courses)
 
-        # Ensure each course has an 'id' field
+        # Ensure each course has an 'id' field and include lecture_count
         for course in courses_data:
-            # If your schema doesn't include id, add it manually
             if 'id' not in course:
-                course_obj = Course.query.filter_by(title=course['title']).first()
+                course_obj = Course.query.filter_by(title=course.get('title')).first()
                 if course_obj:
                     course['id'] = course_obj.id
-        
+            # If we have the id, compute lecture count
+            course_id = course.get('id')
+            if course_id:
+                try:
+                    # count associated lectures
+                    count = Lecture.query.filter_by(course_id=course_id).count()
+                except Exception:
+                    count = 0
+                course['lecture_count'] = count
+            else:
+                course['lecture_count'] = 0
+
         return jsonify({"courses": courses_data}), 200
 
     except Exception as e:

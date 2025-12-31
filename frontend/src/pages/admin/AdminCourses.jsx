@@ -63,7 +63,7 @@ const AdminCourses = () => {
 
     return (
         <div>
-            {/* Header Area */}
+            
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div>
                     <h1 className="text-3xl font-bold text-slate-800 dark:text-white">
@@ -91,7 +91,7 @@ const AdminCourses = () => {
                 </div>
             </div>
 
-            {/* Mobile Search - Visible only on small screens */}
+            
             <div className="md:hidden relative mb-6">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                 <input
@@ -127,7 +127,7 @@ const AdminCourses = () => {
                                     key={courseId}
                                 >
                                     <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                                        {/* Course Image / Placeholder */}
+                                        
                                         <div className="h-40 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center relative overflow-hidden">
                                             <div className="absolute inset-0 bg-primary-500/5 group-hover:bg-primary-500/10 transition-colors"></div>
                                             <BookOpen size={48} className="text-slate-300 dark:text-slate-600 group-hover:scale-110 transition-transform duration-500" />

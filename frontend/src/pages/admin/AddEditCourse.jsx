@@ -23,7 +23,7 @@ const AddEditCourse = () => {
     const [loading, setLoading] = useState(false);
     const [fetching, setFetching] = useState(isEdit);
 
-    // Fetch course data if in edit mode
+    
     useEffect(() => {
         if (isEdit && !state?.course) {
             fetchCourse();
@@ -47,7 +47,7 @@ const AddEditCourse = () => {
                 return;
             }
 
-            // First, get all courses and find the specific one
+            
             const response = await fetch(`${API_BASE_URL}/admin/courses`, {
                 method: 'GET',
                 headers: {
@@ -71,9 +71,7 @@ const AddEditCourse = () => {
 
             const data = await response.json();
             
-            // Find the course with matching ID
             const course = data.courses?.find(c => {
-                // Check various ID fields
                 const idFields = ['id', '_id', 'course_id', 'courseId'];
                 for (const field of idFields) {
                     if (c[field]?.toString() === courseId) {
@@ -134,14 +132,13 @@ const AddEditCourse = () => {
             throw new Error('Authentication required');
         }
 
-        // Create a clean payload with only the fields that should be updated
         const payload = {
             title: courseData.title.trim(),
             description: courseData.description.trim(),
             status: courseData.status
         };
 
-        console.log('Update payload:', payload); // Debug log
+        console.log('Update payload:', payload);
 
         const response = await fetch(`${API_BASE_URL}/admin/update_course/${courseId}`, {
             method: 'PUT',
@@ -166,13 +163,11 @@ const AddEditCourse = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        // Validation
-        if (!formData.title.trim()) {
+            if (!formData.title.trim()) {
             toast.error('Course title is required');
             return;
         }
 
-        // Additional validation
         if (formData.title.trim().length < 3) {
             toast.error('Course title must be at least 3 characters long');
             return;
@@ -202,10 +197,8 @@ const AddEditCourse = () => {
         } catch (error) {
             console.error('Submit error:', error);
             
-            // Handle validation errors from backend
             const errors = error.response?.data?.errors;
             if (errors) {
-                // For Marshmallow validation errors
                 if (typeof errors === 'object') {
                     Object.entries(errors).forEach(([field, errArray]) => {
                         if (Array.isArray(errArray)) {
@@ -218,7 +211,6 @@ const AddEditCourse = () => {
                     toast.error(String(errors));
                 }
             } else if (error.response?.data?.msg || error.response?.data?.message) {
-                // For other backend errors
                 toast.error(error.response.data.msg || error.response.data.message);
             } else {
                 toast.error(error.message || 'Operation failed');

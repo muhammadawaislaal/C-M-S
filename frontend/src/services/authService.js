@@ -1,7 +1,6 @@
 import api from '../api/axios';
 
 const authService = {
-    // Admin
     registerAdmin: async (data) => {
         const response = await api.post('/register', data);
         return response.data;
@@ -11,7 +10,6 @@ const authService = {
         return response.data;
     },
 
-    // Student
     registerStudent: async (data) => {
         const response = await api.post('/api/student/register', data);
         return response.data;

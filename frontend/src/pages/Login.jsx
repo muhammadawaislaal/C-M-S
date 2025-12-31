@@ -6,14 +6,15 @@ import Button from '../components/Button';
 import Input from '../components/Input';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
-import { GraduationCap, Lock, ArrowRight, Quote } from 'lucide-react';
+import { GraduationCap, ArrowRight, Eye, Globe } from 'lucide-react';
+import loginIllustration from '../assets/login_illustration.png';
 
 const Login = () => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
-    const [role, setRole] = useState('student'); // 'student' or 'admin'
+    const [role, setRole] = useState('student');
     const [loading, setLoading] = useState(false);
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -46,127 +47,119 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-4">
-            <div className="w-full max-w-5xl bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row shadow-slate-200/50 dark:shadow-slate-900/50">
+        <div className="min-h-screen flex items-center justify-center bg-[#F2EBFA] p-4 md:p-8 font-['Plus_Jakarta_Sans']">
+            <div className="w-full max-w-6xl flex flex-col md:flex-row items-center gap-12 lg:gap-24">
 
-                {/* Left Side - Inspirational Content */}
+                {/* Form Side */}
                 <motion.div
-                    initial={{ opacity: 0, x: -50 }}
+                    initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="md:w-1/2 bg-gradient-to-br from-primary-600 to-primary-800 p-12 text-white flex flex-col justify-between relative overflow-hidden"
+                    className="w-full md:w-[480px] bg-white rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-14 shadow-2xl shadow-purple-200/50"
                 >
-                    {/* Abstract Shapes */}
-                    <div className="absolute top-[-20%] left-[-20%] w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
-                    <div className="absolute bottom-[-10%] right-[-10%] w-80 h-80 bg-purple-500/30 rounded-full blur-3xl"></div>
-
-                    <div className="relative z-10">
-                        <div className="flex items-center gap-2 mb-8">
-                            <GraduationCap size={40} className="text-white/90" />
-                            <span className="text-2xl font-bold tracking-tight">CMS Portal</span>
-                        </div>
-
-                        <div className="space-y-6">
-                            <h2 className="text-4xl font-bold leading-tight">
-                                Unlock Your <br />
-                                <span className="text-primary-200">Potential</span> Today.
-                            </h2>
-                            <p className="text-primary-100 text-lg leading-relaxed max-w-sm">
-                                Access world-class education and manage your learning journey with clear insights and seamless tools.
-                            </p>
+                    <div className="flex items-center justify-between mb-8 md:mb-10">
+                        <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white">
+                                <GraduationCap size={20} />
+                            </div>
+                            <span className="text-xl font-black text-slate-800 tracking-tight">CMS.</span>
                         </div>
                     </div>
 
-                    <div className="relative z-10 mt-12">
-                        <Quote size={32} className="text-primary-300 mb-4 opacity-50" />
-                        <blockquote className="text-xl font-medium italic text-primary-50">
-                            "Education is the passport to the future, for tomorrow belongs to those who prepare for it today."
-                        </blockquote>
-                        <cite className="block mt-4 text-primary-200 not-italic font-semibold">— Malcolm X</cite>
-                    </div>
-                </motion.div>
+                    <h1 className="text-4xl md:text-[44px] font-extrabold text-[#111] leading-tight mb-6 md:mb-8 text-center md:text-left">Sign in</h1>
 
-                {/* Right Side - Login Form */}
-                <motion.div
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="md:w-1/2 p-12 flex flex-col justify-center"
-                >
-                    <div className="text-center md:text-left mb-8">
-                        <h3 className="text-3xl font-bold text-slate-800 dark:text-white mb-2">Welcome Back</h3>
-                        <p className="text-slate-500 dark:text-slate-400">Please enter your details to sign in.</p>
+                    <div className="flex flex-col sm:flex-row gap-3 mb-8 md:mb-10">
+                        <button className="flex-1 flex items-center justify-center gap-3 py-3 px-4 bg-[#4A86E8] text-white rounded-xl text-sm font-bold shadow-lg shadow-blue-100 hover:bg-blue-600 transition-all">
+                            <span className="w-5 h-5 bg-white rounded-full flex items-center justify-center">
+                                <span className="text-blue-600 text-[10px] font-black">G</span>
+                            </span>
+                            Sign in with Google
+                        </button>
+                        <button className="w-full sm:w-12 h-12 bg-[#FF71A4] text-white rounded-xl flex items-center justify-center shadow-lg shadow-pink-100">
+                            <Globe size={20} />
+                        </button>
                     </div>
 
-                    {/* Role Toggles */}
-                    <div className="bg-slate-100 dark:bg-slate-800 p-1 rounded-xl flex mb-8">
+                    {/* Role Selection Tabs */}
+                    <div className="flex gap-4 mb-6 md:mb-8 justify-center md:justify-start">
                         <button
                             onClick={() => setRole('student')}
-                            className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${role === 'student'
-                                    ? 'bg-white dark:bg-slate-700 text-primary-600 shadow-sm transform scale-[1.02]'
-                                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'
-                                }`}
+                            className={`px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-wider transition-all ${role === 'student' ? 'bg-black text-white' : 'bg-slate-100 text-slate-400'}`}
                         >
-                            Student Portal
+                            Student
                         </button>
                         <button
                             onClick={() => setRole('admin')}
-                            className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${role === 'admin'
-                                    ? 'bg-white dark:bg-slate-700 text-primary-600 shadow-sm transform scale-[1.02]'
-                                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-700'
-                                }`}
+                            className={`px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-wider transition-all ${role === 'admin' ? 'bg-black text-white' : 'bg-slate-100 text-slate-400'}`}
                         >
-                            Admin Access
+                            Staff
                         </button>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-5">
-                        <Input
-                            label="Email Address"
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            placeholder="name@example.com"
-                            required
-                            className="bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 focus:ring-primary-500"
-                        />
-                        <div>
-                            <Input
-                                label="Password"
-                                type="password"
-                                name="password"
-                                value={formData.password}
+                    <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
+                        <div className="space-y-2">
+                            <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest px-1">Email Address</label>
+                            <input
+                                type="email"
+                                name="email"
+                                value={formData.email}
                                 onChange={handleChange}
-                                placeholder="••••••••"
+                                placeholder="katelova24@gmail.com"
                                 required
-                                className="bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 focus:ring-primary-500"
+                                className="w-full px-5 py-3.5 md:px-6 md:py-4 bg-white border-2 border-slate-100 rounded-2xl text-sm font-bold focus:border-[#42BB4E] transition-all outline-none"
                             />
-                            <div className="flex justify-end mt-2">
-                                <a href="#" className="text-xs font-medium text-primary-600 hover:text-primary-500">
-                                    Forgot password?
-                                </a>
+                        </div>
+
+                        <div className="space-y-2">
+                            <div className="flex justify-between px-1">
+                                <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Password</label>
+                                <a href="#" className="text-[11px] font-black text-[#4A86E8] uppercase tracking-widest">Forgot password?</a>
+                            </div>
+                            <div className="relative group">
+                                <input
+                                    type="password"
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    placeholder="•••••••••••••••"
+                                    required
+                                    className="w-full px-5 py-3.5 md:px-6 md:py-4 bg-white border-2 border-slate-100 rounded-2xl text-sm font-bold focus:border-[#42BB4E] transition-all outline-none"
+                                />
+                                <Eye className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-slate-500" size={18} />
                             </div>
                         </div>
 
-                        <Button
-                            type="submit"
-                            className="w-full py-3.5 text-base shadow-lg shadow-primary-500/20 hover:shadow-primary-500/30 transition-shadow"
-                            isLoading={loading}
-                        >
-                            <span className="flex items-center justify-center gap-2">
-                                Sign In <ArrowRight size={18} />
-                            </span>
-                        </Button>
+                        <div className="pt-4 flex justify-center md:justify-start">
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="w-full md:w-[140px] py-4 bg-[#111] text-white rounded-2xl text-xs font-black uppercase tracking-[0.15em] shadow-2xl shadow-black/20 hover:-translate-y-1 transition-all disabled:opacity-50"
+                            >
+                                {loading ? 'Checking...' : 'Sign in'}
+                            </button>
+                        </div>
                     </form>
 
-                    <p className="mt-8 text-center text-xs text-slate-400">
-                        {role === 'student'
-                            ? "Don't have an account? Contact your administrator."
-                            : "Protected area. Authorized personnel only."
-                        }
-                    </p>
+                    <div className="mt-10 pt-10 border-t border-slate-50">
+                        <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+                            Authorized access only. Logins are monitored.
+                        </p>
+                    </div>
                 </motion.div>
+
+                {/* Illustration Side */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8 }}
+                    className="hidden md:block flex-1"
+                >
+                    <img
+                        src={loginIllustration}
+                        alt="3D Illustration"
+                        className="w-full h-auto object-contain max-h-[700px] drop-shadow-2xl"
+                    />
+                </motion.div>
+
             </div>
         </div>
     );

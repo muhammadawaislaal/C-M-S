@@ -9,7 +9,6 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Check for token on mount
         const token = localStorage.getItem('token');
         const storedUser = localStorage.getItem('user');
 
@@ -28,17 +27,13 @@ export const AuthProvider = ({ children }) => {
     const login = (userData, token) => {
         localStorage.setItem('token', token);
 
-        // Decode token to get role if not provided in userData (API response might vary)
-        // The API response for login is { message, token }
-        // We decode the token to get role and identity
         const decoded = jwtDecode(token);
 
-        // Construct user object
         const userObj = {
             ...userData, // might be empty initially
             role: decoded.role,
             id: decoded.identity
-            // Add other fields if encoded in token or returned by API
+            
         };
 
         localStorage.setItem('user', JSON.stringify(userObj));

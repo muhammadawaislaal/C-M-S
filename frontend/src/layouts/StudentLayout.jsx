@@ -1,38 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
-import { LayoutDashboard, BookOpen, PlayCircle, Trophy } from 'lucide-react';
+import {
+    LayoutDashboard,
+    BookOpen,
+    PlayCircle,
+    Trophy,
+    Menu,
+    Search,
+    Bell,
+    Settings
+} from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const StudentLayout = () => {
+    const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth >= 1024);
+
     const studentLinks = [
-        { path: '/student', label: 'My Dashboard', icon: <LayoutDashboard size={22} /> },
-        { path: '/student/my-courses', label: 'My Learning', icon: <PlayCircle size={22} /> },
-        { path: '/student/courses', label: 'Browse Courses', icon: <BookOpen size={22} /> },
-        // Placeholder for future gamification
-        // { path: '/student/achievements', label: 'Achievements', icon: <Trophy size={22} /> },
+        { path: '/student', label: 'My Dashboard', icon: <LayoutDashboard size={20} /> },
+        { path: '/student/my-courses', label: 'My Learning', icon: <PlayCircle size={20} /> },
+        { path: '/student/courses', label: 'Browse Courses', icon: <BookOpen size={20} /> },
+        { path: '/student/achievements', label: 'Achievements', icon: <Trophy size={20} /> },
+        { path: '/student/community', label: 'Community', icon: <Search size={20} /> },
+        { path: '/student/settings', label: 'Settings', icon: <Settings size={20} /> }
     ];
 
     return (
-        <div className="flex h-screen bg-slate-50 dark:bg-slate-950 overflow-hidden">
-            <Sidebar title="Student Portal" links={studentLinks} userRole="Student" />
+        <div className="flex h-screen bg-[#F8F9FD] dark:bg-slate-950 overflow-hidden font-sans">
+            <Sidebar
+                links={studentLinks}
+                userRole="Student"
+                isOpen={isSidebarOpen}
+                setIsOpen={setIsSidebarOpen}
+            />
 
-            <motion.main
-                className="flex-1 overflow-y-auto p-8 relative"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4 }}
-            >
-                {/* Background Blobs for Aesthetics */}
-                <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-                    <div className="absolute top-[-5%] right-[10%] w-[500px] h-[500px] bg-green-200/30 rounded-full blur-[100px] opacity-60 mix-blend-multiply dark:bg-green-900/20"></div>
-                    <div className="absolute bottom-[10%] left-[-5%] w-[400px] h-[400px] bg-teal-200/30 rounded-full blur-[80px] opacity-60 mix-blend-multiply dark:bg-teal-900/20"></div>
+            <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+                {/* Mobile Top Bar */}
+                <div className="lg:hidden flex items-center justify-between p-4 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 shrink-0 z-40">
+                    <button
+                        onClick={() => setIsSidebarOpen(true)}
+                        className="p-2 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-500 hover:text-indigo-600 transition-colors"
+                    >
+                        <Menu size={20} />
+                    </button>
+                    <span className="font-bold text-slate-800 dark:text-white">Student Portal</span>
+                    <div className="w-10 h-10 rounded-xl bg-slate-200 overflow-hidden">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Student" alt="avatar" />
+                    </div>
                 </div>
 
-                <div className="max-w-7xl mx-auto">
-                    <Outlet />
-                </div>
-            </motion.main>
+                <motion.main
+                    className="flex-1 overflow-y-auto px-4 md:px-8 py-6 relative"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <div className="max-w-[1600px] mx-auto">
+                        <Outlet />
+                    </div>
+                </motion.main>
+            </div>
         </div>
     );
 };

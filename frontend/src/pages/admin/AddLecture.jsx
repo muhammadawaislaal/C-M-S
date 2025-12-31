@@ -12,7 +12,7 @@ const AddLecture = () => {
     const { courseId } = useParams();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const [type, setType] = useState('video'); // 'video' or 'pdf'
+    const [type, setType] = useState('video');
 
     const [formData, setFormData] = useState({
         title: '',
@@ -45,7 +45,7 @@ const AddLecture = () => {
                     return;
                 }
 
-                // Visual feedback for large files
+                
                 if (file.size > 10 * 1024 * 1024) {
                     toast.info('Uploading large file, please wait...');
                 }
@@ -55,7 +55,7 @@ const AddLecture = () => {
                 data.append('title', formData.title);
                 data.append('type', 'pdf');
                 data.append('order_number', formData.order_number);
-                data.append('file', file); // Trying standard 'file' key. `content` and `pdf` were previous attempts.
+                data.append('file', file);
 
                 await adminService.addLecturePdf(data);
             }
@@ -64,7 +64,6 @@ const AddLecture = () => {
             navigate('/admin');
         } catch (error) {
             console.error(error);
-            // Check all common backend error keys
             const errorMsg = error.response?.data?.message ||
                 error.response?.data?.msg ||
                 error.response?.data?.error ||
